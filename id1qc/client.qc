@@ -756,8 +756,8 @@ void() PlayerJump =
 	if (!(self.flags & FL_ONGROUND))
 		return;
 
-	if ( !(self.flags & FL_JUMPRELEASED) )
-		return;		// don't pogo stick
+	//if ( !(self.flags & FL_JUMPRELEASED) ) // paranoid_mod
+		//return;		// don't pogo stick
 
 	self.flags = self.flags - (self.flags & FL_JUMPRELEASED);
 

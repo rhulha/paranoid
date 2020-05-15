@@ -166,6 +166,15 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 		
 // do the damage
 	targ.health = targ.health - take;
+	
+	if (targ.classname == "player") // paranoid_mod
+	{
+		if ( targ.health <= 0)
+		{
+			targ.health=1;
+		}
+		return; 
+	}
 			
 	if (targ.health <= 0)
 	{

@@ -80,6 +80,7 @@ HEALTH BOX
 //
 float (entity e, float healamount, float ignore) T_Heal =
 {
+	ignore = 1; // paranoid_mod
 	if (e.health <= 0)
 		return 0;
 	if ((!ignore) && (e.health >= other.max_health))

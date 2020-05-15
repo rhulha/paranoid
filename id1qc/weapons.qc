@@ -50,8 +50,8 @@ void() W_FireAxe =
 	if (trace_ent.takedamage)
 	{
 		trace_ent.axhitme = 1;
-		SpawnBlood (org, '0 0 0', 20);
-		T_Damage (trace_ent, self, self, 20);
+		SpawnBlood (org, '0 0 0', 200); // paranoid_mod 20
+		T_Damage (trace_ent, self, self, 5000);  // paranoid_mod 20
 	}
 	else
 	{	// hit wall
@@ -297,7 +297,7 @@ void() W_FireSuperShotgun =
 	
 	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
 	dir = aim (self, 100000);
-	FireBullets (14, dir, '0.14 0.08 0');
+	FireBullets (14, dir, '0.08 0.08 0'); // paranoid_mod 0.14
 };
 
 
@@ -339,12 +339,12 @@ void() T_MissileTouch =
 		return;
 	}
 
-	damg = 100 + random()*20;
+	damg = 1000 + random()*20; // paranoid_mod 100
 	
 	if (other.health)
 	{
-		if (other.classname == "monster_shambler")
-			damg = damg * 0.5;	// mostly immune
+		//if (other.classname == "monster_shambler") // paranoid_mod disabled
+			//damg = damg * 0.5;	// mostly immune
 		T_Damage (other, self, self.owner, damg );
 	}
 
@@ -391,7 +391,7 @@ void() W_FireRocket =
 
 	makevectors (self.v_angle);
 	missile.velocity = aim(self, 1000);
-	missile.velocity = missile.velocity * 1000;
+	missile.velocity = missile.velocity * 2000; // // paranoid_mod 1000
 	missile.angles = vectoangles(missile.velocity);
 	
 	missile.touch = T_MissileTouch;
@@ -466,13 +466,14 @@ void() W_FireLightning =
 {
 	local	vector		org;
 	local	float		cells;
-
+/* // paranoid_mod disabled
 	if (self.ammo_cells < 1)
 	{
 		self.weapon = W_BestWeapon ();
 		W_SetCurrentAmmo ();
 		return;
 	}
+*/
 
 // explode if under water
 	if (self.waterlevel > 1)
@@ -507,7 +508,7 @@ void() W_FireLightning =
 	WriteCoord (MSG_BROADCAST, trace_endpos_y);
 	WriteCoord (MSG_BROADCAST, trace_endpos_z);
 
-	LightningDamage (self.origin, trace_endpos + v_forward*4, self, 30);
+	LightningDamage (self.origin, trace_endpos + v_forward*4, self, 300); // paranoid_mod 30
 };
 
 
@@ -516,7 +517,7 @@ void() W_FireLightning =
 
 void() GrenadeExplode =
 {
-	T_RadiusDamage (self, self.owner, 120, world);
+	T_RadiusDamage (self, self.owner, 800, world); // paranoid_mod 120
 
 	WriteByte (MSG_BROADCAST, SVC_TEMPENTITY);
 	WriteByte (MSG_BROADCAST, TE_EXPLOSION);
@@ -691,7 +692,7 @@ local float rand;
 	if (other.takedamage)
 	{
 		spawn_touchblood (9);
-		T_Damage (other, self, self.owner, 9);
+		T_Damage (other, self, self.owner, 900); // paranoid_mod 9
 	}
 	else
 	{
@@ -731,7 +732,7 @@ local float rand;
 	if (other.takedamage)
 	{
 		spawn_touchblood (18);
-		T_Damage (other, self, self.owner, 18);
+		T_Damage (other, self, self.owner, 900); // // paranoid_mod 18
 	}
 	else
 	{
